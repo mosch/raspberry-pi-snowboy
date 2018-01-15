@@ -3,8 +3,7 @@ FROM resin/raspberry-pi-python:latest
 ENTRYPOINT []
 #RUN apk add --no-cache curl gcc musl-dev portaudio-dev make swig g++ openblas-dev openblas
 #RUN pip install pyaudio
-RUN apt-get update
-RUN apt-get -y install sox swig3.0 python-pyaudio python3-pyaudio libatlas-base-dev
+RUN apt-get update && apt-get -y install sox swig3.0 python-pyaudio python3-pyaudio libatlas-base-dev
 
 WORKDIR /root/  
 
