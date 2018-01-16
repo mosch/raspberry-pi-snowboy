@@ -10,7 +10,7 @@ ADD https://s3-us-west-2.amazonaws.com/snowboy/snowboy-releases/rpi-arm-raspbian
 RUN cp /root/snowboy/_snowboydetec.so /root/service/
 RUN cp /root/snowboy/snowboydecoder.py /root/service/
 RUN cp /root/snowboy/snowboydetec.py /root/service/
-#RUN pip install pyaudio pyzmq
+RUN pip install -r /root/service/requirements.txt
 
 COPY walle.pmdl /root/walle.pmdl
 COPY asoundrc /root/.asoundrc
