@@ -4,7 +4,7 @@ ENTRYPOINT []
 
 RUN [ "cross-build-start" ]
 
-RUN apt-get update && apt-get -y install sox swig3.0 python-pyaudio python3-pyaudio libatlas-base-dev
+RUN apt-get update && apt-get -y install sox swig3.0 python-pyaudio python3-pyaudio libatlas-base-dev libportaudio-dev
 
 WORKDIR /root/  
 

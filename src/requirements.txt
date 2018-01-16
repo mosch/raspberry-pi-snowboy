@@ -1,5 +1,5 @@
 pytest>=3.0.7
 logzero  # see github.com/metachris/logzero
-PyAudio==0.2.9
+pyaudio
 pyzmq
 
