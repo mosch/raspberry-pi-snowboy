@@ -1,9 +1,19 @@
-FROM arm32v6/node:alpine
+FROM resin/raspberry-pi-python:latest
 
 ENTRYPOINT []
-RUN apk add --no-cache nanomsg
-RUN npm install nanomsg --use_system_libnanomsg=true
+RUN apt-get update && apt-get -y install sox swig3.0 python-pyaudio python3-pyaudio libatlas-base-dev
 
 WORKDIR /root/  
 
-CMD [ "ls" ]
+COPY src /root/service
+ADD https://s3-us-west-2.amazonaws.com/snowboy/snowboy-releases/rpi-arm-raspbian-8.0-1.2.0.tar.bz2 /root/snowboy
+RUN cp /root/snowboy/_snowboydetec.so /root/service/
+RUN cp /root/snowboy/snowboydecoder.py /root/service/
+RUN cp /root/snowboy/snowboydetec.py /root/service/
+#RUN pip install pyaudio pyzmq
+
+COPY walle.pmdl /root/walle.pmdl
+COPY asoundrc /root/.asoundrc
+
+RUN find /root/
+CMD [ "python", "/root/service/main.py", "/root/walle.pmdl"]
