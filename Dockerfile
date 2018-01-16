@@ -1,6 +1,9 @@
 FROM resin/raspberry-pi-python:latest
 
 ENTRYPOINT []
+
+RUN [ "cross-build-start" ]
+
 RUN apt-get update && apt-get -y install sox swig3.0 python-pyaudio python3-pyaudio libatlas-base-dev
 
 WORKDIR /root/  
@@ -15,5 +18,6 @@ RUN pip install -r /root/service/requirements.txt
 COPY walle.pmdl /root/walle.pmdl
 COPY asoundrc /root/.asoundrc
 
-RUN find /root/
+RUN [ "cross-build-end" ]
+
 CMD [ "python", "/root/service/main.py", "/root/walle.pmdl"]
