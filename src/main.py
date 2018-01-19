@@ -26,8 +26,8 @@ def interrupt_callback():
 
 def sendMessage(publisher):
   def callback():
-    publisher.send ('hotword detected')
-    snowboydecoder.play_audio_file
+    publisher.send_multipart(['hotword', '1'])
+    snowboydecoder.play_audio_file()
   return callback
 
 def main(model):
@@ -35,7 +35,7 @@ def main(model):
     logger.info("hello world")
     context = zmq.Context()
     publisher = context.socket (zmq.PUB)
-    publisher.bind ("ipc://hotword")
+    publisher.bind ("tcp://*:8888")
     detector = snowboydecoder.HotwordDetector(model, sensitivity=0.5)
     detector.start(detected_callback=sendMessage(publisher),
                   interrupt_check=interrupt_callback,
@@ -46,11 +46,9 @@ signal.signal(signal.SIGINT, signal_handler)
 
 if len(sys.argv) == 1:
     print("Error: need to specify model name")
-    print("Usage: python demo.py your.model")
+    print("Usage: python main.py your.model")
     sys.exit(-1)
 
 if __name__ == "__main__":
     """ This is executed when run from the command line """
     main(sys.argv[1])
-
-
